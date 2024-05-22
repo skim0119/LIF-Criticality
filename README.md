@@ -1,17 +1,15 @@
-# [Change Title] <Title> - <Authors> (<Year>)
-<!-- Originated from: https://github.com/aidanscannell/reproducible-research-project-template -->
+#  Control of criticality and computation in spiking neuromorphic networks with plasticity - Benjamin Cramer et. al. (2020)
 
-This repository contains an attempt to reproduce the results of the paper: [link](INSERT LINK).
-<!--
-Supplementary material for the paper are available: [link](INSERT LINK).
--->
+This repository contains an attempt to reproduce the results of the paper: [link](https://www.nature.com/articles/s41467-020-16548-3).
 
 ```bibtex
-@article{XXX,
-    title={Title,
-    author={Authors},
-    journal={Journals},
-    year={2023}
+@article{Cramer2020,
+abstract = {The critical state is assumed to be optimal for any computation in recurrent neural networks, because criticality maximizes a number of abstract computational properties. We challenge this assumption by evaluating the performance of a spiking recurrent neural network on a set of tasks of varying complexity at - and away from critical network dynamics. To that end, we developed a plastic spiking network on a neuromorphic chip. We show that the distance to criticality can be easily adapted by changing the input strength, and then demonstrate a clear relation between criticality, task-performance and information-theoretic fingerprint. Whereas the information-theoretic measures all show that network capacity is maximal at criticality, only the complex tasks profit from criticality, whereas simple tasks suffer. Thereby, we challenge the general assumption that criticality would be beneficial for any task, and provide instead an understanding of how the collective network state should be tuned to task requirement.},
+author = {Cramer, Benjamin and St{\"{o}}ckel, David and Kreft, Markus and Wibral, Michael and Schemmel, Johannes and Meier, Karlheinz and Priesemann, Viola},
+journal = {Nature Communications},
+title = {{Control of criticality and computation in spiking neuromorphic networks with plasticity}},
+url = {http://dx.doi.org/10.1038/s41467-020-16548-3},
+year = {2020}
 }
 ```
 
@@ -21,16 +19,10 @@ Running `make all` in the top level directory should:
 1. `make install`: make a python virtual environment using `Poetry` and install dependencies.
 2. `make run`: run all experiments
 
-<!-- IF CLUSTER RUN REQUIRED
-> Scripts in this repository are designed to be run on a cluster setting.
--->
-
 ## Require tools
 
 Following tools are used to aid reproducibility and ease of use.
 See the links for more information.
-- [hydra](https://hydra.cc/): managing experimental configurations,
-    - [submitit](https://hydra.cc/docs/plugins/submitit_launcher/) and [multirun](https://hydra.cc/docs/intro/#multirun): deploy experiments in parallel
 - [poetry](https://python-poetry.org/): managing python dependencies
 
 ## Before finishing project
@@ -46,33 +38,3 @@ See the links for more information.
 Short script on running:
 
 ## Reproducing experiments
-
-All experiments use the hydra config in [configs/main.yaml](configs/main.yaml).
-Each experiment then overrides specific parts of the config which are detailed in their experiment override configs in [experiments/](configs/experiment/).
-
-You can display the base config using:
-``` shell
-python train.py --cfg=job
-```
-Run an experiment with:
-``` shell
-python train.py +experiment=experiment_1
-```
-Ideally, all experiments can be run in paralell (on a cluster) with:
-``` shell
-python train.py  --multirun +experiment=glob(*)
-```
-Note that we can sweep over config value using hydra, for example, we can sweep over a set of random seeds with:
-``` shell
-python train.py --multirun ++random_seed=42,1,5,100
-```
-However, the best thing to do is to specify the sweeps directly in an experiment's config.
-For example, we can we sweep over `models.AwesomeModel`'s `parameter` argument and it's `random_seed` with the [following config](./configs/experiment/sweep_over_models_parameter_and_seed.yaml):
-``` yaml
-# @package _global_
-hydra:
-  sweeper:
-    params:
-      mode.parameter: 1,2,3,4,5
-      random_seed: 1,42,69,50,100
-```
