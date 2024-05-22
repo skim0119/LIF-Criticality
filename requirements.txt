@@ -1,0 +1,11 @@
+matplotlib
+numpy
+hydra-core
+hydra-submitit-launcher
+
+black
+pre-commit
+pyright
+isort
+pyflakes
+pytest
